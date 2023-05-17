@@ -22,7 +22,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <a href="{% url 'product' product.id %}" class="btn btn-sm btn-outline-secondary">Подробнее</a>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">В корзину</button>
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-sm btn-outline-secondary">В корзину</a>
                   </div>
                   <small class="text-muted">{{ product.price }} $.</small>
                 </div>
