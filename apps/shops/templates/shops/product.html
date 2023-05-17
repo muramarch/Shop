@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}
     Detail product
 {% endblock %}
@@ -19,10 +20,10 @@
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">{{ product.description }}</p>
                 {% for specification in product.specifications.all %}
-                <p>{{ specification.name }} : {{ specification.value }}
+                <p>{{ specification.name }} : {{ specification.value }}</p>
                 {% endfor %}
                 <p class="card-text"><strong>Price:</strong> {{ product.price }} $.</p>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-sm btn-outline-secondary">Add to Cart</a>
             </div>
         </div>
     </div>

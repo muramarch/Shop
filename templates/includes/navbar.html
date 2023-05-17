@@ -13,7 +13,7 @@
         {% if user.is_authenticated %}
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a href="{% url 'view_cart' %}">Cart</a>
                     Cart 
                     <span class="badge badge-pill badge-primary">{{ cart_count }}</span>
                 </a>
