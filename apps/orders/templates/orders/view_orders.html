@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Your Orders</h1>
+  {% if orders %}
+    <ul>
+      {% for order in orders %}
+        <li>
+          Order ID: {{ order.id }}<br>
+          Created at: {{ order.created_at }}<br>
+          <!-- Дополнительные поля заказа -->
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No orders found.</p>
+  {% endif %}
+{% endblock %}
