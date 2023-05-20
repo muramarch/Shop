@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.shops.urls')),
     path('accounts/', include('apps.accounts.urls')),
-    path('cart/', include('apps.cart.urls')),  # Добавляем URL-адреса из cart.urls
+    path('cart/', include('apps.cart.urls')), 
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

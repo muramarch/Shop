@@ -16,7 +16,14 @@
           </div>
         </div>
         {% endfor %}
-        <a href="" class="btn btn-success">To order</a>
+        {% if cart_items %}
+        {% for cart_item in cart_items %}
+        <!-- Cart item details -->
+        {% endfor %}
+        <a href="{% url 'order_confirmation' %}" class="btn btn-success">Place Order</a>
+        {% else %}
+        <!-- Empty cart message -->
+        {% endif %}
       {% else %}
         <div class="cart_inner_text" style="width: 200px; height: 200px">
           <p>Empty</p>
