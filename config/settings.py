@@ -36,7 +36,6 @@ ALLOWED_HOSTS = env_config('ALLOWED_HOSTS', '').split(',')
 MY_APPS = [
     'apps.accounts',
     'apps.shops',
-    'apps.orders',
     'apps.cart',
 ]
 
