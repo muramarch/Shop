@@ -53,6 +53,7 @@ def place_order(request):
 
     # Clear the cart
     cart_items.delete()
+    order.save()
 
     return redirect('view_cart')
 

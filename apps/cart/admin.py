@@ -17,8 +17,16 @@ class CartItemAdmin(admin.ModelAdmin):
     list_filter = ('cart', 'product')
     search_fields = ('cart__user__username', 'product__name')
     
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'order', 'product', 'quantity')
+    list_filter = ('order', 'product')
     
-admin.site.register(Order)
-admin.site.register(OrderItem)
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user')
+    search_fields = ('user__username',)
+    list_filter = ('user',)
+    
 
 
