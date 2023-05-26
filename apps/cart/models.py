@@ -3,6 +3,7 @@ from django.db import models
 
 from apps.shops.models import Product
 
+
 class Cart(models.Model):
     user = models.ForeignKey(
         User,
@@ -40,5 +41,5 @@ class OrderItem(models.Model):
     order = models.ForeignKey(
         Order, 
         on_delete=models.CASCADE
-        )
+    )
     quantity = models.IntegerField()

@@ -26,3 +26,8 @@
     font-weight: bold;
     font-family: "Arial", sans-serif;
 }
+
+.carousel-inner img {
+    width: 100px;
+    height: 100px;
+}

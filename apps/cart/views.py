@@ -69,6 +69,8 @@ def save_order_info(request):
         surname = request.POST.get('surname')
         email = request.POST.get('email')
 
+        
+
         # Сохранение данных в админке или в профиле пользователя
 
         return redirect('order_confirmation')

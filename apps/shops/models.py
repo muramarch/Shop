@@ -5,12 +5,12 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class Category(MPTTModel):
     name = models.CharField(
-        _('Название'),
+        _('Name'),
         max_length=255
     )
     parent = TreeForeignKey(
         'self',
-        verbose_name=_('Родительская категория'),
+        verbose_name=_('Parent category'),
         on_delete=models.CASCADE,
         null=True,
         blank=True,

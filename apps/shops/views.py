@@ -12,3 +12,9 @@ class ProductView(View):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
         return render(request, 'shops/product.html', {'product': product})
+    
+    
+class AllProductsView(View):
+    def get(self, request):
+        products = Product.objects.all()
+        return render(request, 'shops/all_products.html', {'products': products})
