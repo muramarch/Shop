@@ -8,14 +8,11 @@ from apps.shops.models import Product
 
 class Command(BaseCommand):
     help = _('Parse data from external source')
-    base_url = 'https://www.newbalance.com/'
-
-    def add_arguments(self, parser):
-        parser.add_argument('--date', type=str, help=_('Date in format: YYYY-mm-dd'))
+    base_url = 'https://www.example.com/men/shoes/all-shoes/'  # Замените на URL нужного магазина
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS(_('Parsing starting!')))
-        self.parse(options['date'])
+        self.parse()
         self.stdout.write(self.style.SUCCESS(_('Parsing finished!')))
 
     def get_html(self, url):
@@ -26,23 +23,33 @@ class Command(BaseCommand):
         soup = BeautifulSoup(content, 'html.parser')
         return soup
 
-    def parse(self, date):
-        response = self.get_html(f"{self.base_url}/?lable=8&date={date}&order=time")
+    def parse(self):
+        response = self.get_html(self.base_url)
         soup = self.get_soup(response)
-        shoes_block = soup.find('div', {'class': 'pgptiles col-6 col-lg-4 px-1 px-lg-2'})
-        
-        shoes_list = shoes_block.find_all('div', {'class': 'product-tile-inner'})
-        for shoes in shoes_list:
-            product = Product()
-            product.name = shoes.find('a', {'class': 'link font-weight-bold pname text-underline no-underline-lg'}).get_text()
+        shoes_block = soup.find('div', {'class': 'shoes-block'})  # Замените на соответствующий селектор для блока с обувью
 
-        description = ""
-        for text in shoes.find_all('text'):
-            description += f"{text.text}\n"
-        
-        product.description = description.strip()
-        
-        product.price = shoes.find('span', {'class': 'sales font-body-large'}).get_text()
-        product.save()
-        
-        self.stdout.write(self.style.SUCCESS(str(product)))
+        if shoes_block:
+            shoes_list = shoes_block.find_all('div', {'class': 'shoe-item'})  # Замените на соответствующий селектор для каждого товара
+            for shoes in shoes_list:
+                # Извлечение данных о товаре
+                image_url = shoes.find('img', {'class': 'shoe-image'}).get('src')
+                name = shoes.find('h3', {'class': 'shoe-name'}).get_text()
+                price = shoes.find('span', {'class': 'shoe-price'}).get_text()
+                description = shoes.find('p', {'class': 'shoe-description'}).get_text()
+
+                # Создание и сохранение экземпляра Product
+                product = Product()
+                product.name = name
+                product.price = price
+                product.description = description
+
+                # Сохранение фото обуви в модели Product
+                image_content = self.get_html(image_url)
+                product.image.save(f'{name}.jpg', image_content, save=True)
+
+                product.save()
+                self.stdout.write(self.style.SUCCESS(f'Saved product: {product}'))
+        else:
+            self.stdout.write(self.style.WARNING('No shoes found.'))
+
+
